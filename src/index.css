@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased selection:bg-blue-500/30 selection:text-white;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    letter-spacing: -0.01em;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tighter font-semibold;
+  }
+}
+
+@layer utilities {
+  .theme-card {
+    @apply bg-white rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-10 relative overflow-hidden transition-all duration-500 hover:scale-[1.01] hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)];
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-br from-black via-gray-800 to-gray-500 bg-clip-text text-transparent;
+  }
+
+  .text-apple-rgb {
+    background-image: linear-gradient(90deg, #000000 0%, #4285F4 33%, #EA4335 66%, #000000 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: flowRGB 10s linear infinite;
+  }
+
+  .animate-blob {
+    animation: blob 15s infinite ease-in-out;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  .micro-label {
+    @apply text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-black/50 font-medium;
+  }
+  
+  .glass-nav {
+    @apply fixed top-0 left-0 right-0 z-50;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  .apple-button {
+    @apply px-8 py-3.5 rounded-full text-[15px] font-medium transition-all duration-300 active:scale-[0.97];
+    box-shadow: 0 4px 14px 0 rgba(0,0,0,0.05);
+  }
+}
+
+@keyframes flowRGB {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes blob {
+  0% { transform: translate3d(0px, 0px, 0) scale(1); }
+  33% { transform: translate3d(20px, -30px, 0) scale(1.05); }
+  66% { transform: translate3d(-15px, 15px, 0) scale(0.95); }
+  100% { transform: translate3d(0px, 0px, 0) scale(1); }
+}
