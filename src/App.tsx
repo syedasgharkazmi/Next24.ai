@@ -24,7 +24,8 @@ import {
   TrendingUp,
   Cpu,
   ChevronRight,
-  Menu
+  Menu,
+  BrainCircuit
 } from 'lucide-react';
 
 // --- Types & Constants ---
@@ -51,13 +52,23 @@ const SOLUTIONS = [
 
 // --- Components ---
 
-const Logo = ({ size = "w-4 h-4" }: { size?: string }) => (
-  <div className={`relative ${size} grid grid-cols-2 gap-[2px] items-center justify-center shrink-0`}>
-    {/* Minimalistic 4-dot creative tech grid (Google/Microsoft vibe but modern) */}
-    <div className="w-full h-full bg-[#4285F4] rounded-tl-sm rounded-br-sm" />
-    <div className="w-full h-full bg-[#EA4335] rounded-tr-sm rounded-bl-sm opacity-90" />
-    <div className="w-full h-full bg-[#FBBC05] rounded-bl-sm rounded-tr-sm opacity-90" />
-    <div className="w-full h-full bg-[#34A853] rounded-br-sm rounded-tl-sm" />
+const Logo = ({ size = "w-8 h-8 md:w-10 md:h-10", className = "" }: { size?: string, className?: string }) => (
+  <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`relative ${size} shrink-0 text-blue-500`}>
+      <BrainCircuit className="w-full h-full" strokeWidth={1.5} />
+      <span className="absolute inset-0 flex items-center justify-center font-bold text-black text-[10px] md:text-xs">AI</span>
+    </div>
+    <div className="flex flex-col justify-center">
+      <div className="flex items-center leading-none tracking-tight">
+        <span className="text-2xl md:text-3xl font-semibold text-[#4285F4]">n</span>
+        <span className="text-2xl md:text-3xl font-semibold text-[#EA4335]">e</span>
+        <span className="text-2xl md:text-3xl font-semibold text-[#FBBC05]">x</span>
+        <span className="text-2xl md:text-3xl font-semibold text-[#34A853]">24</span>
+      </div>
+      <span className="text-[9px] md:text-[10px] text-gray-400 font-medium tracking-[0.05em] leading-none mt-1">
+        Intelligent Solutions
+      </span>
+    </div>
   </div>
 );
 
@@ -71,11 +82,11 @@ const ScrollToTop = () => {
 
 // --- Page Header for Subpages ---
 const PageHeader = ({ title, subtitle }: { title: string; subtitle: string }) => (
-  <section className="relative pt-32 pb-16 px-8 border-b border-white/5 bg-[#000000]">
+  <section className="relative pt-32 pb-16 px-8 border-b border-black/5 bg-white">
     <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-64 bg-blue-500/10 blur-[100px] rounded-full pointer-events-none" />
     <div className="max-w-4xl mx-auto text-center relative z-10">
-      <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 text-white">{title}</h1>
-      <p className="text-white/50 text-lg max-w-2xl mx-auto font-medium">{subtitle}</p>
+      <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 text-black">{title}</h1>
+      <p className="text-black/50 text-lg max-w-2xl mx-auto font-medium">{subtitle}</p>
     </div>
   </section>
 );
@@ -101,19 +112,18 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`glass-nav px-6 py-3 flex justify-between items-center transition-all duration-500 z-50 relative ${isScrolled || isMenuOpen ? 'border-b border-white/[0.05] bg-[#000000]/60 backdrop-blur-md' : 'border-transparent shadow-none'}`}>
+      <nav className={`glass-nav px-6 py-3 flex justify-between items-center transition-all duration-500 z-50 relative ${isScrolled || isMenuOpen ? 'border-b border-black/[0.05] bg-white/80 backdrop-blur-md' : 'border-transparent shadow-none'}`}>
         <div className="max-w-[1200px] mx-auto w-full flex items-center justify-between relative">
-          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group z-50">
-            <Logo size="w-4 h-4" />
-            <span className="text-[14px] font-semibold tracking-tight text-white transition-colors">Next24.ai</span>
+          <Link to="/" className="flex items-center group z-50">
+            <Logo />
           </Link>
           
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 gap-6 lg:gap-8 text-[13px] text-white/50 font-bold tracking-tight z-50">
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 gap-6 lg:gap-8 text-[13px] text-black/50 font-bold tracking-tight z-50">
             {navLinks.map((link) => (
               <Link 
                 key={link.title} 
                 to={link.to} 
-                className={`hover:text-white transition-colors`}
+                className={`hover:text-black transition-colors`}
               >
                 {link.title}
               </Link>
@@ -121,12 +131,12 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-4 md:gap-6 z-50">
-            <button className="hidden sm:block text-[13px] text-white/50 hover:text-white transition-colors font-bold tracking-tight">Log in</button>
-            <button className="bg-white text-black hover:bg-white/80 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm tracking-tight transition-all duration-300 shadow-md">
+            <button className="hidden sm:block text-[13px] text-black/50 hover:text-black transition-colors font-bold tracking-tight">Log in</button>
+            <button className="bg-black text-white hover:bg-black/80 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm tracking-tight transition-all duration-300 shadow-md">
               Sign Up
             </button>
             <button 
-              className="md:hidden text-white/70 hover:text-white transition-colors"
+              className="md:hidden text-black/70 hover:text-black transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -142,7 +152,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-black pt-24 px-8 md:hidden"
+            className="fixed inset-0 z-40 bg-white pt-24 px-8 md:hidden"
           >
             <div className="flex flex-col gap-8 text-2xl font-bold tracking-tight">
               {navLinks.map((link) => (
@@ -150,14 +160,14 @@ const Navbar = () => {
                   key={link.title} 
                   to={link.to} 
                   onClick={() => setIsMenuOpen(false)}
-                  className={`hover:text-blue-500 transition-colors text-white`}
+                  className={`hover:text-blue-500 transition-colors text-black`}
                 >
                   {link.title}
                 </Link>
               ))}
-              <div className="pt-8 border-t border-white/5 flex flex-col gap-6">
-                <button className="text-left text-white/50 hover:text-white transition-colors">Log in</button>
-                <button className="bg-white text-black py-4 rounded-full text-center font-bold">Get Started</button>
+              <div className="pt-8 border-t border-black/5 flex flex-col gap-6">
+                <button className="text-left text-black/50 hover:text-black transition-colors">Log in</button>
+                <button className="bg-black text-white py-4 rounded-full text-center font-bold">Get Started</button>
               </div>
             </div>
           </motion.div>
@@ -197,14 +207,14 @@ const Hero = () => {
         >
           <motion.div 
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}
-            className="inline-block px-5 py-2 border border-white/10 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-white/60 mb-8 bg-white/5 backdrop-blur-md shadow-sm"
+            className="inline-block px-5 py-2 border border-black/10 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-black/60 mb-8 bg-black/5 backdrop-blur-md shadow-sm"
           >
             Private AI Infrastructure v2.0
           </motion.div>
           
           <motion.h1 
             variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } } }}
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-[100px] font-bold tracking-tighter leading-[1.05] sm:leading-[1] mb-8 text-white px-2 sm:px-0 drop-shadow-2xl"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-[100px] font-bold tracking-tighter leading-[1.05] sm:leading-[1] mb-8 text-black px-2 sm:px-0 drop-shadow-2xl"
           >
             Marketing on Autopilot. <br className="hidden md:block" /> 
             <span className="text-transparent bg-clip-text bg-[linear-gradient(to_right,#4285F4,#EA4335,#FBBC05,#34A853)] drop-shadow-none">
@@ -214,7 +224,7 @@ const Hero = () => {
           
           <motion.p 
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } } }}
-            className="text-white/50 text-xl md:text-2xl font-medium leading-[1.4] max-w-2xl mx-auto mb-12 px-4 sm:px-0 tracking-tight"
+            className="text-black/50 text-xl md:text-2xl font-medium leading-[1.4] max-w-2xl mx-auto mb-12 px-4 sm:px-0 tracking-tight"
           >
             Connect Meta, Google, and TikTok Ads simultaneously. Replace your human workflow with private AI nodes.
           </motion.p>
@@ -223,10 +233,10 @@ const Hero = () => {
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 px-4"
           >
-            <button className="bg-white text-black hover:bg-white/80 px-8 py-4 sm:py-5 rounded-full font-bold text-base tracking-tight transition-all duration-300 w-full sm:w-auto shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+            <button className="bg-black text-white hover:bg-black/80 px-8 py-4 sm:py-5 rounded-full font-bold text-base tracking-tight transition-all duration-300 w-full sm:w-auto shadow-[0_0_20px_rgba(255,255,255,0.1)]">
               Start Automation
             </button>
-            <button className="bg-white/5 border border-white/10 text-white hover:bg-white/10 px-8 py-4 sm:py-5 rounded-full font-bold text-base tracking-tight transition-all duration-300 backdrop-blur-md w-full sm:w-auto shadow-sm">
+            <button className="bg-black/5 border border-black/10 text-black hover:bg-black/10 px-8 py-4 sm:py-5 rounded-full font-bold text-base tracking-tight transition-all duration-300 backdrop-blur-md w-full sm:w-auto shadow-sm">
               System Architecture
             </button>
           </motion.div>
@@ -252,8 +262,8 @@ const DataEngine = () => {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 text-center lg:text-left relative z-20"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-semibold mb-6 sm:mb-8 tracking-tighter leading-tight text-white">Real-Time Data Engine</h2>
-            <p className="text-white/50 text-lg sm:text-xl mb-10 sm:mb-12 leading-relaxed font-medium max-w-xl mx-auto lg:mx-0">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-semibold mb-6 sm:mb-8 tracking-tighter leading-tight text-black">Real-Time Data Engine</h2>
+            <p className="text-black/50 text-lg sm:text-xl mb-10 sm:mb-12 leading-relaxed font-medium max-w-xl mx-auto lg:mx-0">
               Connect every channel into a single source of truth. Our private infrastructure streams direct API data from Meta, Google, and TikTok.
             </p>
             <motion.ul 
@@ -275,10 +285,10 @@ const DataEngine = () => {
                 <motion.li 
                   key={i} 
                   variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } } }}
-                  className="flex items-center gap-4 text-white/80"
+                  className="flex items-center gap-4 text-black/80"
                 >
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-white/10 flex items-center justify-center bg-white/5 shrink-0 shadow-sm">
-                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-black/10 flex items-center justify-center bg-black/5 shrink-0 shadow-sm">
+                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black" />
                   </div>
                   <span className="text-base sm:text-lg font-medium">{item}</span>
                 </motion.li>
@@ -396,7 +406,7 @@ const AISuite = () => {
 
 const ComparisonTable = () => {
   return (
-    <section id="architecture" className="py-16 md:py-32 px-6 sm:px-8 overflow-hidden bg-black">
+    <section id="architecture" className="py-16 md:py-32 px-6 sm:px-8 overflow-hidden bg-white">
       <div className="max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
@@ -405,8 +415,8 @@ const ComparisonTable = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-12 sm:mb-20"
         >
-          <h2 className="text-4xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-tighter leading-tight text-white">Manual vs. Automation</h2>
-          <p className="text-white/50 text-xl md:text-2xl font-medium px-4 tracking-tight">Stop paying for overhead. Start investing in infrastructure.</p>
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-tighter leading-tight text-black">Manual vs. Automation</h2>
+          <p className="text-black/50 text-xl md:text-2xl font-medium px-4 tracking-tight">Stop paying for overhead. Start investing in infrastructure.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-stretch px-4 sm:px-0">
@@ -415,19 +425,19 @@ const ComparisonTable = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col justify-between bg-[#0A0A0A] border border-white/5 rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            className="flex flex-col justify-between bg-gray-50 border border-black/5 rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
           >
              <div>
-               <div className="text-white/40 font-bold tracking-[0.2em] uppercase mb-4 text-xs">Manual Workforce</div>
-               <h3 className="text-3xl sm:text-4xl font-bold mb-8 tracking-tight text-white">The Human Team</h3>
-               <ul className="space-y-4 text-white/60 font-medium">
-                 <li className="flex justify-between items-center text-base sm:text-lg"><span>Senior Marketer</span> <X className="w-5 h-5 text-white/30" /></li>
-                 <li className="flex justify-between items-center text-base sm:text-lg"><span>Video Editor (48h TA)</span> <X className="w-5 h-5 text-white/30" /></li>
-                 <li className="flex justify-between items-center text-base sm:text-lg"><span>Direct Copywriter</span> <X className="w-5 h-5 text-white/30" /></li>
-                 <li className="flex justify-between items-center text-base sm:text-lg"><span>Graphic Designer</span> <X className="w-5 h-5 text-white/30" /></li>
+               <div className="text-black/40 font-bold tracking-[0.2em] uppercase mb-4 text-xs">Manual Workforce</div>
+               <h3 className="text-3xl sm:text-4xl font-bold mb-8 tracking-tight text-black">The Human Team</h3>
+               <ul className="space-y-4 text-black/60 font-medium">
+                 <li className="flex justify-between items-center text-base sm:text-lg"><span>Senior Marketer</span> <X className="w-5 h-5 text-black/30" /></li>
+                 <li className="flex justify-between items-center text-base sm:text-lg"><span>Video Editor (48h TA)</span> <X className="w-5 h-5 text-black/30" /></li>
+                 <li className="flex justify-between items-center text-base sm:text-lg"><span>Direct Copywriter</span> <X className="w-5 h-5 text-black/30" /></li>
+                 <li className="flex justify-between items-center text-base sm:text-lg"><span>Graphic Designer</span> <X className="w-5 h-5 text-black/30" /></li>
                </ul>
              </div>
-             <div className="mt-10 pt-8 border-t border-white/5 font-bold text-2xl sm:text-3xl text-white/40 tracking-tight">
+             <div className="mt-10 pt-8 border-t border-black/5 font-bold text-2xl sm:text-3xl text-black/40 tracking-tight">
                 $5,000+ / mo
              </div>
           </motion.div>
@@ -437,24 +447,24 @@ const ComparisonTable = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col justify-between bg-[#111111] border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden transform hover:-translate-y-2 transition-transform duration-500"
+            className="flex flex-col justify-between bg-gray-100 border border-black/10 shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden transform hover:-translate-y-2 transition-transform duration-500"
           >
              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[80px] pointer-events-none text-center" />
              <div className="absolute top-0 right-0 p-6 z-10">
-               <div className="px-3 py-1.5 bg-white/10 text-white text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-md">Automated v2.0</div>
+               <div className="px-3 py-1.5 bg-black/10 text-black text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-md">Automated v2.0</div>
              </div>
              <div className="relative z-10">
                <div className="text-blue-400 font-bold tracking-[0.2em] uppercase mb-4 text-xs">Next24.ai Automation</div>
-               <h3 className="text-3xl sm:text-4xl font-bold mb-8 tracking-tight text-white">Private Infrastructure</h3>
-               <ul className="space-y-4 text-white/80 font-medium">
+               <h3 className="text-3xl sm:text-4xl font-bold mb-8 tracking-tight text-black">Private Infrastructure</h3>
+               <ul className="space-y-4 text-black/80 font-medium">
                  <li className="flex justify-between items-center text-base sm:text-lg"><span>AI Marketing Strategy</span> <Check className="w-5 h-5 text-blue-400" /></li>
                  <li className="flex justify-between items-center text-base sm:text-lg"><span>Instant Video Production</span> <Check className="w-5 h-5 text-blue-400" /></li>
                  <li className="flex justify-between items-center text-base sm:text-lg"><span>Neural Copy Engine</span> <Check className="w-5 h-5 text-blue-400" /></li>
                  <li className="flex justify-between items-center text-base sm:text-lg"><span>AI Graphic Designer</span> <Check className="w-5 h-5 text-blue-400" /></li>
                </ul>
              </div>
-             <div className="mt-10 pt-8 border-t border-white/10 font-bold text-4xl sm:text-5xl text-white tracking-tighter relative z-10">
-                $29 <span className="text-xs sm:text-sm text-white/40 tracking-tight font-medium ml-2 uppercase">Starting Monthly</span>
+             <div className="mt-10 pt-8 border-t border-black/10 font-bold text-4xl sm:text-5xl text-black tracking-tighter relative z-10">
+                $29 <span className="text-xs sm:text-sm text-black/40 tracking-tight font-medium ml-2 uppercase">Starting Monthly</span>
              </div>
           </motion.div>
         </div>
@@ -464,25 +474,25 @@ const ComparisonTable = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8 sm:mt-12 bg-[#111111] border border-white/5 rounded-3xl sm:rounded-[2.5rem] py-10 px-8 sm:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 text-center lg:text-left mx-4 sm:mx-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          className="mt-8 sm:mt-12 bg-gray-100 border border-black/5 rounded-3xl sm:rounded-[2.5rem] py-10 px-8 sm:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 text-center lg:text-left mx-4 sm:mx-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
         >
            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 w-full lg:w-auto">
              <div className="flex flex-col">
-               <span className="text-white/40 font-bold uppercase tracking-[0.2em] mb-2 text-[10px] sm:text-xs">Performance</span>
-               <span className="text-xl sm:text-2xl font-bold tracking-tight text-white">+340% ROI</span>
+               <span className="text-black/40 font-bold uppercase tracking-[0.2em] mb-2 text-[10px] sm:text-xs">Performance</span>
+               <span className="text-xl sm:text-2xl font-bold tracking-tight text-black">+340% ROI</span>
              </div>
              <div className="flex flex-col">
-               <span className="text-white/40 font-bold uppercase tracking-[0.2em] mb-2 text-[10px] sm:text-xs">Sovereignty</span>
-               <span className="text-xl sm:text-2xl font-bold tracking-tight text-white">Private Server</span>
+               <span className="text-black/40 font-bold uppercase tracking-[0.2em] mb-2 text-[10px] sm:text-xs">Sovereignty</span>
+               <span className="text-xl sm:text-2xl font-bold tracking-tight text-black">Private Server</span>
              </div>
              <div className="flex flex-col">
-               <span className="text-white/40 font-bold uppercase tracking-[0.2em] mb-2 text-[10px] sm:text-xs">Automation</span>
-               <span className="text-xl sm:text-2xl font-bold tracking-tight text-white">End-to-End</span>
+               <span className="text-black/40 font-bold uppercase tracking-[0.2em] mb-2 text-[10px] sm:text-xs">Automation</span>
+               <span className="text-xl sm:text-2xl font-bold tracking-tight text-black">End-to-End</span>
              </div>
            </div>
-           <div className="flex items-center gap-6 pt-8 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/5 w-full lg:w-auto lg:pl-12 justify-center lg:justify-start">
-              <span className="text-white/30 font-bold uppercase tracking-[0.2em] text-[10px]">Trusted</span>
-              <div className="flex gap-8 opacity-40 font-bold text-xs tracking-widest uppercase text-white">
+           <div className="flex items-center gap-6 pt-8 lg:pt-0 border-t lg:border-t-0 lg:border-l border-black/5 w-full lg:w-auto lg:pl-12 justify-center lg:justify-start">
+              <span className="text-black/30 font-bold uppercase tracking-[0.2em] text-[10px]">Trusted</span>
+              <div className="flex gap-8 opacity-40 font-bold text-xs tracking-widest uppercase text-black">
                 <span>Agency.X</span>
                 <span>Storeflow</span>
               </div>
@@ -572,7 +582,7 @@ const Pricing = () => {
               <motion.div 
                 key={i} 
                 variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
-                className={`flex flex-col justify-between p-8 sm:p-12 rounded-3xl sm:rounded-[2.5rem] border border-black/5 transition-transform duration-500 hover:-translate-y-2 ${isHighlight ? 'bg-white text-black shadow-[0_20px_60px_rgba(0,0,0,0.08)] lg:scale-105 z-10' : 'bg-[#F5F5F7] text-black shadow-[0_8px_30px_rgb(0,0,0,0.04)]'}`}
+                className={`flex flex-col justify-between p-8 sm:p-12 rounded-3xl sm:rounded-[2.5rem] border border-black/5 transition-transform duration-500 hover:-translate-y-2 ${isHighlight ? 'bg-white text-black shadow-[0_30px_60px_rgba(0,0,0,0.12)] border-black/10 lg:scale-105 z-10' : 'bg-[#F5F5F7] text-black shadow-[0_8px_30px_rgb(0,0,0,0.04)]'}`}
               >
                 <div className="h-full flex flex-col">
                   <div className="flex justify-between items-start mb-8">
@@ -588,10 +598,10 @@ const Pricing = () => {
                       {typeof displayPrice === 'number' ? `$${displayPrice}` : displayPrice}
                     </span>
                     {typeof displayPrice === 'number' && (
-                       <span className={`text-sm font-semibold tracking-tight ${isHighlight ? 'text-black/40' : 'text-black/40'}`}>/mo</span>
+                       <span className={`text-sm font-semibold tracking-tight text-black/40`}>/mo</span>
                     )}
                   </div>
-                  <p className={`text-base mb-10 leading-relaxed font-medium ${isHighlight ? 'text-black/60' : 'text-black/60'}`}>{plan.desc}</p>
+                  <p className={`text-base mb-10 leading-relaxed font-medium text-black/60`}>{plan.desc}</p>
                   <ul className="space-y-4 mb-12 flex-1">
                     {plan.features.map((feature, j) => (
                       <li key={j} className="flex items-start gap-4 text-sm sm:text-base font-medium">
@@ -618,7 +628,7 @@ const PrivateAlpha = () => {
   const scaleEffect = useTransform(scrollYProgress, [0.7, 1], [0.95, 1.05]);
 
   return (
-    <section id="alpha" className="py-16 md:py-32 px-6 sm:px-8 relative overflow-hidden bg-black perspective-[1000px]">
+    <section id="alpha" className="py-16 md:py-32 px-6 sm:px-8 relative overflow-hidden bg-white perspective-[1000px]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(59,130,246,0.05)_0%,_transparent_60%)] pointer-events-none" />
       
       <div className="max-w-[1200px] mx-auto">
@@ -628,20 +638,20 @@ const PrivateAlpha = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-[#111111] rounded-[2.5rem] sm:rounded-[3.5rem] p-10 sm:p-24 md:p-32 text-center relative overflow-hidden shadow-[0_20px_50px_rgb(0,0,0,0.5)] border border-white/[0.05]"
+          className="bg-gray-100 rounded-[2.5rem] sm:rounded-[3.5rem] p-10 sm:p-24 md:p-32 text-center relative overflow-hidden shadow-[0_20px_50px_rgb(0,0,0,0.5)] border border-black/[0.05]"
         >
            <div className="relative z-10 max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-white/5 border border-white/5 rounded-full mb-8 sm:mb-12">
-                <ShieldCheck className="w-4 h-4 text-white/50" />
-                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-white/50">Restricted Ecosystem</span>
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-black/5 border border-black/5 rounded-full mb-8 sm:mb-12">
+                <ShieldCheck className="w-4 h-4 text-black/50" />
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-black/50">Restricted Ecosystem</span>
               </div>
               
-              <h2 className="text-4xl sm:text-6xl md:text-8xl font-semibold mb-8 sm:mb-10 tracking-tighter text-white leading-none px-2 sm:px-0">
+              <h2 className="text-4xl sm:text-6xl md:text-8xl font-semibold mb-8 sm:mb-10 tracking-tighter text-black leading-none px-2 sm:px-0">
                 Request Access
               </h2>
               
-              <p className="text-white/50 text-lg sm:text-xl font-medium mb-12 sm:mb-16 leading-relaxed px-4 sm:px-0 tracking-tight">
-                Join the initial <span className="text-white font-semibold">50 elite agencies</span> establishing private cluster infrastructure. Personal technician assigned on invitation.
+              <p className="text-black/50 text-lg sm:text-xl font-medium mb-12 sm:mb-16 leading-relaxed px-4 sm:px-0 tracking-tight">
+                Join the initial <span className="text-black font-semibold">50 elite agencies</span> establishing private cluster infrastructure. Personal technician assigned on invitation.
               </p>
               
               <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 max-w-xl mx-auto px-4 sm:px-0">
@@ -649,16 +659,16 @@ const PrivateAlpha = () => {
                   <input 
                     type="email" 
                     placeholder="Enter work email"
-                    className="w-full h-14 sm:h-16 bg-[#000000]/50 border border-white/10 rounded-2xl px-6 sm:px-8 text-base font-medium placeholder:text-white/30 text-white focus:outline-none focus:border-blue-500/50 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)] transition-all duration-300 shadow-sm"
+                    className="w-full h-14 sm:h-16 bg-black/50 border border-black/10 rounded-2xl px-6 sm:px-8 text-base font-medium placeholder:text-black/30 text-black focus:outline-none focus:border-blue-500/50 focus:shadow-[0_0_0_4px_rgba(59,130,246,0.1)] transition-all duration-300 shadow-sm"
                   />
                 </div>
-                <button className="w-full h-14 sm:h-16 bg-white text-black text-base font-bold rounded-2xl hover:bg-gray-100 transition-colors whitespace-nowrap px-10 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                <button className="w-full h-14 sm:h-16 bg-black text-white text-base font-bold rounded-2xl hover:bg-gray-100 transition-colors whitespace-nowrap px-10 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                   Request Key
                 </button>
               </div>
-              <p className="mt-8 text-[9px] sm:text-[11px] text-white/30 uppercase tracking-[0.25em] font-bold px-4 sm:px-0">Priority response for established agencies</p>
+              <p className="mt-8 text-[9px] sm:text-[11px] text-black/30 uppercase tracking-[0.25em] font-bold px-4 sm:px-0">Priority response for established agencies</p>
               
-              <div className="mt-16 sm:mt-20 pt-12 sm:pt-16 border-t border-white/5 grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 px-4 sm:px-0">
+              <div className="mt-16 sm:mt-20 pt-12 sm:pt-16 border-t border-black/5 grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 px-4 sm:px-0">
                  {[
                    { label: "Slots Remaining", val: "12 / 50" },
                    { label: "Cluster Status", val: "Operational" },
@@ -666,8 +676,8 @@ const PrivateAlpha = () => {
                    { label: "Uptime", val: "100.0%" }
                  ].map((stat, i) => (
                    <div key={i} className="text-center">
-                     <div className="text-[9px] sm:text-[11px] text-white/40 uppercase mb-2 sm:mb-3 font-bold tracking-widest">{stat.label}</div>
-                     <div className="text-xl sm:text-2xl font-bold text-white tracking-tighter uppercase leading-none whitespace-nowrap">{stat.val}</div>
+                     <div className="text-[9px] sm:text-[11px] text-black/40 uppercase mb-2 sm:mb-3 font-bold tracking-widest">{stat.label}</div>
+                     <div className="text-xl sm:text-2xl font-bold text-black tracking-tighter uppercase leading-none whitespace-nowrap">{stat.val}</div>
                    </div>
                  ))}
               </div>
@@ -688,9 +698,9 @@ const AIAnalytics = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-[#F5F5F7] border border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2.5rem] p-0 overflow-hidden order-2 lg:order-1"
+            className="bg-white border border-black/10 shadow-[0_30px_60px_rgba(0,0,0,0.12)] rounded-[2.5rem] p-0 overflow-hidden order-2 lg:order-1"
           >
-             <div className="p-8 sm:p-10 border-b border-black/5 flex justify-between items-center bg-white/50">
+             <div className="p-8 sm:p-10 border-b border-black/5 flex justify-between items-center bg-white">
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="w-2.5 h-2.5 bg-[#4285F4] rounded-full shadow-[0_0_10px_#4285F4]" />
                   <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-black/80">Predictive Intelligence</span>
@@ -713,7 +723,7 @@ const AIAnalytics = () => {
                   );
                 })}
              </div>
-             <div className="grid grid-cols-3 border-t border-black/5 divide-x divide-black/5 bg-white/50">
+             <div className="grid grid-cols-3 border-t border-black/5 divide-x divide-black/5 bg-white">
                 {[
                   { label: "Predict ROI", value: "+5.2x", color: "text-[#34A853]" },
                   { label: "Confidence", value: "98.4%", color: "text-black" },
@@ -816,7 +826,7 @@ const MonitoringSection = () => {
 
 const SolutionsGrid = () => {
   return (
-    <section id="solutions" className="py-16 md:py-32 px-6 sm:px-8 bg-black">
+    <section id="solutions" className="py-16 md:py-32 px-6 sm:px-8 bg-white">
        <div className="max-w-[1200px] mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -825,8 +835,8 @@ const SolutionsGrid = () => {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-center mb-12 sm:mb-20"
           >
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-semibold mb-6 tracking-tighter text-white">Built for scale.</h2>
-            <p className="text-white/50 text-xl md:text-2xl font-medium max-w-2xl mx-auto tracking-tight">Deploy our proprietary infrastructure across your entire marketing stack.</p>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-semibold mb-6 tracking-tighter text-black">Built for scale.</h2>
+            <p className="text-black/50 text-xl md:text-2xl font-medium max-w-2xl mx-auto tracking-tight">Deploy our proprietary infrastructure across your entire marketing stack.</p>
           </motion.div>
 
           <motion.div 
@@ -841,19 +851,15 @@ const SolutionsGrid = () => {
           >
             {SOLUTIONS.map((solution, i) => {
               // Create the Apple-style alternating highly-contrasted bento blocks
-              const isDark = i === 0 || i === 2;
-              const blockClass = isDark 
-                ? "bg-[#111111] text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5" 
-                : "bg-white text-black shadow-[0_8px_30px_rgb(0,0,0,0.04)]";
-              const labelClass = isDark
-                ? "bg-white/10 text-white border-white/10"
-                : "bg-black/5 text-black/70 border-black/10";
-              const descClass = isDark
-                ? "text-white/60"
-                : "text-black/60";
-              const linkClass = isDark
-                ? "text-white/60 hover:text-white"
-                : "text-black/50 hover:text-black";
+               const isCenter = i === 1;
+               const blockClass = isCenter 
+                 ? "bg-white text-black shadow-[0_30px_60px_rgba(0,0,0,0.12)] border border-black/10 md:-translate-y-4" 
+                 : "bg-[#F5F5F7] text-black shadow-sm border border-black/5";
+               const labelClass = isCenter
+                 ? "bg-blue-500/10 text-blue-600 border-blue-500/20"
+                 : "bg-black/5 text-black/70 border-black/10";
+               const descClass = "text-black/60";
+               const linkClass = "text-black/60 hover:text-black";
 
               return (
                 <motion.div 
@@ -882,20 +888,19 @@ const SolutionsGrid = () => {
 
 const Footer = () => {
   return (
-    <footer className="pt-20 sm:pt-40 pb-10 sm:pb-20 px-6 sm:px-8 border-t border-white/5 bg-[#000000]">
+    <footer className="pt-20 sm:pt-40 pb-10 sm:pb-20 px-6 sm:px-8 border-t border-black/5 bg-white">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 sm:gap-16 mb-20 lg:mb-32">
           <div className="col-span-2 lg:col-span-2 text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2.5 mb-6 sm:mb-8">
-              <Logo size="w-4 h-4" />
-              <span className="text-[14px] font-bold tracking-tight text-white">Next24.ai</span>
+            <div className="flex items-center justify-center sm:justify-start mb-6 sm:mb-8">
+              <Logo />
             </div>
-            <p className="text-white/50 text-[13px] sm:text-sm max-w-xs mb-8 sm:mb-10 leading-relaxed font-medium mx-auto sm:mx-0 tracking-tight">
+            <p className="text-black/50 text-[13px] sm:text-sm max-w-xs mb-8 sm:mb-10 leading-relaxed font-medium mx-auto sm:mx-0 tracking-tight">
               The elite infrastructure for marketing automation. Connect, analyze, and scale with global private nodes.
             </p>
             <div className="flex justify-center sm:justify-start gap-6 sm:gap-8">
               {['Twitter', 'LinkedIn', 'Instagram'].map((social) => (
-                <a key={social} href="#" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors duration-300 pointer-events-auto">
+                <a key={social} href="#" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-black/40 hover:text-black transition-colors duration-300 pointer-events-auto">
                   {social}
                 </a>
               ))}
@@ -903,14 +908,14 @@ const Footer = () => {
           </div>
 
           <div className="text-center sm:text-left">
-            <h5 className="text-white/80 font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.2em] mb-6 sm:mb-8 whitespace-nowrap">Ad Solutions</h5>
+            <h5 className="text-black/80 font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.2em] mb-6 sm:mb-8 whitespace-nowrap">Ad Solutions</h5>
             <ul className="space-y-4 sm:space-y-5">
               {[
                 { name: 'Meta Setup', slug: '/meta-ads' },
                 { name: 'Google Hub', slug: '/google-ads' },
                 { name: 'TikTok Suite', slug: '/tiktok-ads' }
               ].map((item) => (
-                <li key={item.name}><Link to={item.slug} className="text-white/50 hover:text-white text-xs sm:text-sm transition-colors duration-300 font-bold tracking-tight">
+                <li key={item.name}><Link to={item.slug} className="text-black/50 hover:text-black text-xs sm:text-sm transition-colors duration-300 font-bold tracking-tight">
                   {item.name}
                 </Link></li>
               ))}
@@ -918,7 +923,7 @@ const Footer = () => {
           </div>
 
           <div className="text-center sm:text-left">
-            <h5 className="text-white/80 font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.2em] mb-6 sm:mb-8 whitespace-nowrap">Production</h5>
+            <h5 className="text-black/80 font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.2em] mb-6 sm:mb-8 whitespace-nowrap">Production</h5>
             <ul className="space-y-4 sm:space-y-5">
               {[
                 { name: 'Content Gen', slug: '/content' },
@@ -926,7 +931,7 @@ const Footer = () => {
                 { name: 'Landing Pages', slug: '/landing-pages' },
                 { name: 'Analytics', slug: '/analytics' }
               ].map((item) => (
-                <li key={item.name}><Link to={item.slug} className="text-white/50 hover:text-white text-xs sm:text-sm transition-colors duration-300 font-bold tracking-tight">
+                <li key={item.name}><Link to={item.slug} className="text-black/50 hover:text-black text-xs sm:text-sm transition-colors duration-300 font-bold tracking-tight">
                   {item.name}
                 </Link></li>
               ))}
@@ -934,14 +939,14 @@ const Footer = () => {
           </div>
 
           <div className="text-center sm:text-left col-span-2 md:col-span-1 mt-10 md:mt-0">
-            <h5 className="text-white/80 font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.2em] mb-6 sm:mb-8 whitespace-nowrap">Company</h5>
+            <h5 className="text-black/80 font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.2em] mb-6 sm:mb-8 whitespace-nowrap">Company</h5>
             <ul className="space-y-4 sm:space-y-5">
               {[
                 { name: 'Privacy', slug: '/privacy' },
                 { name: 'Terms', slug: '/terms' },
                 { name: 'Security', slug: '/security' }
               ].map((item) => (
-                <li key={item.name}><Link to={item.slug} className="text-white/50 hover:text-white text-xs sm:text-sm transition-colors duration-300 font-bold tracking-tight">
+                <li key={item.name}><Link to={item.slug} className="text-black/50 hover:text-black text-xs sm:text-sm transition-colors duration-300 font-bold tracking-tight">
                   {item.name}
                 </Link></li>
               ))}
@@ -949,18 +954,18 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-12 sm:pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-10 text-center">
+        <div className="pt-12 sm:pt-16 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-10 text-center">
           <div className="flex flex-col md:flex-row items-center gap-8 lg:gap-12">
             <div className="flex items-center gap-3">
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse opacity-70 shadow-[0_0_10px_#22c55e]" />
-              <span className="text-white/50 font-bold uppercase tracking-[0.2em] text-[9px] sm:text-[11px]">System Nominal (0.2ms)</span>
+              <span className="text-black/50 font-bold uppercase tracking-[0.2em] text-[9px] sm:text-[11px]">System Nominal (0.2ms)</span>
             </div>
-            <span className="text-white/40 italic font-bold tracking-[0.2em] text-[9px] sm:text-[11px]">Designed in Private Cloud. Next24 © 2026</span>
+            <span className="text-black/40 italic font-bold tracking-[0.2em] text-[9px] sm:text-[11px] flex items-center gap-1.5">Designed in Switzerland <span className="not-italic text-sm">🇨🇭</span> Next24 © 2024</span>
           </div>
           
           <div className="flex gap-8 sm:gap-10">
-            <span className="text-white/30 font-bold uppercase tracking-[0.2em] select-none text-[9px] sm:text-[11px]">AES-256</span>
-            <span className="text-white/30 font-bold uppercase tracking-[0.2em] select-none text-[9px] sm:text-[11px]">SHA-512</span>
+            <span className="text-black/30 font-bold uppercase tracking-[0.2em] select-none text-[9px] sm:text-[11px]">AES-256</span>
+            <span className="text-black/30 font-bold uppercase tracking-[0.2em] select-none text-[9px] sm:text-[11px]">SHA-512</span>
           </div>
         </div>
       </div>
@@ -970,12 +975,12 @@ const Footer = () => {
 
 const LegalSection = () => {
   return (
-    <section id="legal" className="py-12 md:py-24 px-6 sm:px-8 border-t border-white/5 bg-black">
+    <section id="legal" className="py-12 md:py-24 px-6 sm:px-8 border-t border-black/5 bg-white">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 uppercase tracking-[0.2em] text-center px-4 text-white">Legal & Privacy</h2>
-        <div className="bg-[#111111] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 rounded-[2.5rem] p-8 sm:p-12 space-y-8 text-white/60 text-sm leading-relaxed mx-4 sm:mx-0 font-medium">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 uppercase tracking-[0.2em] text-center px-4 text-black">Legal & Privacy</h2>
+        <div className="bg-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-black/5 rounded-[2.5rem] p-8 sm:p-12 space-y-8 text-black/60 text-sm leading-relaxed mx-4 sm:mx-0 font-medium">
           <div>
-            <h4 className="text-white font-bold mb-4 uppercase tracking-tighter text-base">Privacy Policy</h4>
+            <h4 className="text-black font-bold mb-4 uppercase tracking-tighter text-base">Privacy Policy</h4>
             <p>
               Next24.ai is built on the principle of data sovereignty. Your private marketing nodes are isolated clusters. 
               We do not sell, rent, or share your campaign data with third-party vendors. All ad-spend intelligence stays 
@@ -983,14 +988,14 @@ const LegalSection = () => {
             </p>
           </div>
           <div>
-            <h4 className="text-white font-bold mb-4 uppercase tracking-tighter text-base">Terms of Service</h4>
+            <h4 className="text-black font-bold mb-4 uppercase tracking-tighter text-base">Terms of Service</h4>
             <p>
               By utilizing our private infrastructure, you agree to our fair-use policy regarding neural node compute. 
               Our service provides the tools for automation; ad-spend remains the responsibility of the account owner 
               through their respective platform connections.
             </p>
           </div>
-          <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/40">
+          <div className="pt-8 border-t border-black/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-black/40">
              <span>Protocol Version 1.2.4</span>
              <span>Last Updated: April 2026</span>
           </div>
@@ -1047,12 +1052,12 @@ const AlphaPage = () => (
 );
 
 const DocsPage = () => (
-  <div className="pt-20 pb-32 bg-black">
+  <div className="pt-20 pb-32 bg-white">
     <PageHeader title="Developer Docs" subtitle="API specifications and system architectural references." />
     <section className="px-6 sm:px-8 max-w-4xl mx-auto mt-20 text-center">
-      <div className="w-20 h-20 bg-[#111111] rounded-[1.5rem] mx-auto flex items-center justify-center border border-white/5 mb-8 uppercase text-blue-500 font-bold tracking-widest text-[10px]">v1.0</div>
-      <h3 className="text-3xl font-semibold mb-6 tracking-tighter text-white">API Documentation Access</h3>
-      <p className="text-white/50 leading-relaxed max-w-2xl mx-auto font-medium">
+      <div className="w-20 h-20 bg-gray-100 rounded-[1.5rem] mx-auto flex items-center justify-center border border-black/5 mb-8 uppercase text-blue-500 font-bold tracking-widest text-[10px]">v1.0</div>
+      <h3 className="text-3xl font-semibold mb-6 tracking-tighter text-black">API Documentation Access</h3>
+      <p className="text-black/50 leading-relaxed max-w-2xl mx-auto font-medium">
         Technical documentation, GraphQL schemas, and Node connection primitives are currently restricted to active Alpha members. Approved organizations can access their specific endpoints from their private dashboard.
       </p>
     </section>
@@ -1060,17 +1065,17 @@ const DocsPage = () => (
 );
 
 const ServicePage = ({ title, subtitle, features }: { title: string; subtitle: string; features: string[] }) => (
-  <div className="pb-32 bg-black">
+  <div className="pb-32 bg-white">
     <PageHeader title={title} subtitle={subtitle} />
     <section className="py-24 px-8">
       <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
         {features.map((feature, i) => (
-          <div key={i} className="bg-[#111111] shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-[2rem] p-8 sm:p-10 border border-white/5">
+          <div key={i} className="bg-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-[2rem] p-8 sm:p-10 border border-black/5">
             <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6">
               <Check className="w-5 h-5 text-blue-500" />
             </div>
-            <h3 className="text-xl font-bold mb-3 tracking-tight text-white">{feature}</h3>
-            <p className="text-white/50 text-sm leading-relaxed font-medium">Advanced neural optimization for maximum performance and scalable marketing outcomes.</p>
+            <h3 className="text-xl font-bold mb-3 tracking-tight text-black">{feature}</h3>
+            <p className="text-black/50 text-sm leading-relaxed font-medium">Advanced neural optimization for maximum performance and scalable marketing outcomes.</p>
           </div>
         ))}
       </div>
@@ -1083,10 +1088,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="min-h-screen bg-[#000000] text-white font-sans selection:bg-blue-500/30 selection:text-white relative">
+      <div className="min-h-screen bg-white text-black font-sans selection:bg-blue-500/30 selection:text-white relative">
         {/* Global Aesthetics */}
-        <div className="fixed inset-0 pointer-events-none z-0 opacity-20" style={{backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px'}} />
-        <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_black_100%)] pointer-events-none z-10" />
+        <div className="fixed inset-0 pointer-events-none z-0 opacity-20" style={{backgroundImage: 'radial-gradient(#000000 1px, transparent 1px)', backgroundSize: '40px 40px'}} />
+        <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_white_100%)] pointer-events-none z-10" />
         
         <div className="relative z-20">
           <Navbar />

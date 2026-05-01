@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply bg-black text-white antialiased selection:bg-blue-500/30 selection:text-white;
+    @apply bg-white text-black antialiased selection:bg-blue-500/30 selection:text-white;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
     letter-spacing: -0.01em;
   }
